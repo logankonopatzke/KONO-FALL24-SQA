@@ -4,7 +4,7 @@ import ast
 from datetime import datetime
 import time
 import sys
-sys.path.insert(1, '/home/konopatzke/Desktop/KONO-FALL24-SQA/MLForensics-farzana/FAME-ML')
+sys.path.insert(1, 'MLForensics-farzana/FAME-ML')
 import lint_engine
 import py_parser
 import main
