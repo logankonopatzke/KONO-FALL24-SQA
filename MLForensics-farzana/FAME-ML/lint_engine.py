@@ -7,6 +7,13 @@ Executes the pattern matching and data flow analysis
 
 import py_parser
 import constants 
+import logging
+
+logging.basicConfig(
+    filename='forensic.log', 
+    level=logging.INFO, 
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
 
 def getDataLoadCount( py_file ):
     data_load_count = 0 
@@ -150,6 +157,7 @@ def getDataLoadCountb( py_file ):
 
 
 def getDataLoadCountc( py_file ):
+    logging.info(f"Checking model load calls (Countc) in file: {py_file}")
     data_load_countc = 0 
     py_tree = py_parser.getPythonParseObject(py_file)
     func_assign_list  = py_parser.getFunctionDefinitions( py_tree ) 
@@ -214,6 +222,7 @@ def getDataLoadCountc( py_file ):
 
 
 def getModelLoadCounta( py_file ):
+    logging.info(f"Checking model load calls (Counta) in file: {py_file}")
     model_load_counta = 0 
     py_tree = py_parser.getPythonParseObject(py_file)
     func_def_list  = py_parser.getPythonAtrributeFuncs( py_tree ) 
@@ -258,6 +267,8 @@ def getModelLoadCounta( py_file ):
             
     LOGGING_IS_ON_FLAG = py_parser.checkLoggingPerData( py_tree, constants.DUMMY_LOG_KW )    
     # print(LOGGING_IS_ON_FLAG, model_load_counta) 
+    logging.info(f"Total model load calls in {py_file}: {model_load_counta}")
+
     return model_load_counta 
     
     
@@ -451,6 +462,7 @@ def getModelLabelCountb( py_file ):
     
     
 def getModelOutputCount( py_file ):
+    logging.info(f"Call model output count")
     model_output_count = 0 
     py_tree = py_parser.getPythonParseObject(py_file)
     func_def_list  = py_parser.getPythonAtrributeFuncs( py_tree ) 
@@ -649,6 +661,7 @@ def getStateObserveCount( py_file ):
     
     
 def getDNNImportStatus( py_tree ):
+    logging.info(f"DNN Import status with AST tree")
     status = False 
     import_list  = py_parser.getImport( py_tree ) 
     for import_ in import_list:
@@ -730,11 +743,13 @@ def getDNNDecisionCountb( py_file ):
     
 
 def getExcepts( py_file ) :
+    logging.info(f"getExcepts function call")
     py_tree = py_parser.getPythonParseObject(py_file)
     except_list  = py_parser.getPythonExcepts( py_tree )  
     except_func_list = py_parser.checkAttribFuncsInExcept( except_list )    
     EXCEPT_LOGGING_IS_ON_FLAG = py_parser.checkExceptLogging( except_func_list )      
     # print(EXCEPT_LOGGING_IS_ON_FLAG) 
+    logging.info(f"excepts py_tree: {py_tree}")
     return EXCEPT_LOGGING_IS_ON_FLAG
     
 
