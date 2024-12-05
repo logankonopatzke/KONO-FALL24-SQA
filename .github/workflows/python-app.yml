@@ -28,6 +28,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install flake8 pytest pandas numpy
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Test with pytest
+    - name: Test fuzzer against ML methods
       run: |
         python3 fuzz.py
